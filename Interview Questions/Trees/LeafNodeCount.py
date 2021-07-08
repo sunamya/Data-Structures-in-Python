@@ -1,25 +1,32 @@
 #User function Template for python3
 
-
-class Solution:
+'''
+class Node:
+    def __init__(self, val):
+        self.right = None
+        self.data = val
+        self.left = None
+'''
+# your task is to complete this function
+# function should return the count of Leaf node's
+# Note: You required to print a new line after every test case
+def countLeaves(root):
+    # Code here
+    if node is None:
+        return 0
+    if(node.left is None and node.right is None):
+        return 1
+    else:
+        return countLeaves(node.left) + countLeaves(node.right)
     
-    #Function to find the vertical order traversal of Binary Tree.
-    def verticalOrder(self, root): 
-        #Your code here
-        dict = {}
-        d=[]
-        self.printVertical(root, 0, dict)
-        # traverse the dictionary and print vertical nodes
-        for key in sorted(dict.keys()):
-            d.append(dict.get(key)[0])
-        return d
-    def printVertical(self,node,dist,dict):
-        if node is None:
-            return
-        dict.setdefault(dist, []).append(node.data)
-        self.printVertical(node.left, dist - 1, dict)
-        self.printVertical(node.right, dist + 1, dict)
+    
 
+
+#{ 
+#  Driver Code Starts
+#Initial Template for Python 3
+
+#Contributed by Sudarshan Sharma
 from collections import deque
 # Tree Node
 class Node:
@@ -28,6 +35,7 @@ class Node:
         self.data = val
         self.left = None
 
+# Function to Build Tree   
 def buildTree(s):
     #Corner Case
     if(len(s)==0 or s[0]=="N"):           
@@ -86,17 +94,12 @@ def buildTree(s):
     
     
 if __name__=="__main__":
-    t=int(input()) 
-    import sys
-    sys.setrecursionlimit(10000)
+    t=int(input())
     for _ in range(0,t):
         s=input()
         root=buildTree(s)
-        res = Solution().verticalOrder(root)
-        for i in res:
-            print (i, end=" ")
-        print()
-
-
+        print(countLeaves(root))
+        
+        
 
 # } Driver Code Ends

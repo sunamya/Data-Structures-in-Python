@@ -1,24 +1,34 @@
 #User function Template for python3
 
 
-class Solution:
+'''class Node: 
+    # Constructor to create a new Node 
+    def __init__(self, data): 
+        self.data = data 
+        self.left = None
+        self.right = None'''
+
+
+#Function to check whether a binary tree is balanced or not.
+def isBalanced(root):
     
-    #Function to find the vertical order traversal of Binary Tree.
-    def verticalOrder(self, root): 
-        #Your code here
-        dict = {}
-        d=[]
-        self.printVertical(root, 0, dict)
-        # traverse the dictionary and print vertical nodes
-        for key in sorted(dict.keys()):
-            d.append(dict.get(key)[0])
-        return d
-    def printVertical(self,node,dist,dict):
-        if node is None:
-            return
-        dict.setdefault(dist, []).append(node.data)
-        self.printVertical(node.left, dist - 1, dict)
-        self.printVertical(node.right, dist + 1, dict)
+    #add code here
+    return isHeightBalanced(root)
+    
+def isHeightBalanced(root, isBalanced=True):
+    if root is None or not isBalanced:
+        return 0, isBalanced
+    left_height, isBalanced = isHeightBalanced(root.left, isBalanced)
+    right_height, isBalanced = isHeightBalanced(root.right, isBalanced)
+    if abs(left_height - right_height) > 1:
+        isBalanced = False
+    return max(left_height, right_height) + 1, isBalanced
+
+
+
+#{ 
+#  Driver Code Starts
+#Initial Template for Python 3
 
 from collections import deque
 # Tree Node
@@ -28,6 +38,7 @@ class Node:
         self.data = val
         self.left = None
 
+# Function to Build Tree   
 def buildTree(s):
     #Corner Case
     if(len(s)==0 or s[0]=="N"):           
@@ -86,17 +97,12 @@ def buildTree(s):
     
     
 if __name__=="__main__":
-    t=int(input()) 
-    import sys
-    sys.setrecursionlimit(10000)
+    t=int(input())
     for _ in range(0,t):
         s=input()
         root=buildTree(s)
-        res = Solution().verticalOrder(root)
-        for i in res:
-            print (i, end=" ")
-        print()
-
-
-
+        if isBalanced(root):
+            print(1) 
+        else:
+            print(0)
 # } Driver Code Ends

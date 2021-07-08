@@ -1,25 +1,31 @@
 #User function Template for python3
 
+'''
+class Node:
+    def _init_(self, val):
+        self.right = None
+        self.data = val
+        self.left = None
+'''
 
 class Solution:
-    
-    #Function to find the vertical order traversal of Binary Tree.
-    def verticalOrder(self, root): 
-        #Your code here
-        dict = {}
-        d=[]
-        self.printVertical(root, 0, dict)
-        # traverse the dictionary and print vertical nodes
-        for key in sorted(dict.keys()):
-            d.append(dict.get(key)[0])
-        return d
-    def printVertical(self,node,dist,dict):
-        if node is None:
-            return
-        dict.setdefault(dist, []).append(node.data)
-        self.printVertical(node.left, dist - 1, dict)
-        self.printVertical(node.right, dist + 1, dict)
+    #Function to check if two trees are identical.
+    def isIdentical(self,root1, root2):
+        # Code here
+        if root1==None and root2==None:
+            return 1
+        return (root1 and root2) and (root1.data==root2.data) and self.isIdentical(root1.left,root2.left) and self.isIdentical(root1.right,root2.right)
 
+#{ 
+#  Driver Code Starts
+#Initial Template for Python 3
+
+
+#Initial Template for Python 3
+
+
+
+#Contributed by Sudarshan Sharma
 from collections import deque
 # Tree Node
 class Node:
@@ -27,7 +33,8 @@ class Node:
         self.right = None
         self.data = val
         self.left = None
-
+    
+# Function to Build Tree   
 def buildTree(s):
     #Corner Case
     if(len(s)==0 or s[0]=="N"):           
@@ -86,17 +93,17 @@ def buildTree(s):
     
     
 if __name__=="__main__":
-    t=int(input()) 
-    import sys
-    sys.setrecursionlimit(10000)
+    t=int(input())
     for _ in range(0,t):
-        s=input()
-        root=buildTree(s)
-        res = Solution().verticalOrder(root)
-        for i in res:
-            print (i, end=" ")
-        print()
-
-
+        s1=input()
+        s2=input()
+        head1=buildTree(s1)
+        head2=buildTree(s2)
+        if Solution().isIdentical(head1, head2):
+            print("Yes")
+        else:
+            print("No")
+        
+        
 
 # } Driver Code Ends

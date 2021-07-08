@@ -1,33 +1,43 @@
 #User function Template for python3
 
-
-class Solution:
-    
-    #Function to find the vertical order traversal of Binary Tree.
-    def verticalOrder(self, root): 
-        #Your code here
-        dict = {}
-        d=[]
-        self.printVertical(root, 0, dict)
-        # traverse the dictionary and print vertical nodes
-        for key in sorted(dict.keys()):
-            d.append(dict.get(key)[0])
-        return d
-    def printVertical(self,node,dist,dict):
-        if node is None:
-            return
-        dict.setdefault(dist, []).append(node.data)
-        self.printVertical(node.left, dist - 1, dict)
-        self.printVertical(node.right, dist + 1, dict)
-
-from collections import deque
-# Tree Node
+'''
 class Node:
-    def __init__(self, val):
-        self.right = None
-        self.data = val
+    """ Class Node """
+    def __init__(self, value):
         self.left = None
+        self.data = value
+        self.right = None
+'''
 
+#Function to convert a binary tree to doubly linked list.
+def bToDLL(root):
+    # do Code here
+    prev=None
+    head,prev=func(prev,root,root)
+    return head
+def func(prev,curr,head):
+    if curr==None:
+        return head,prev
+    head,prev=func(prev,curr.left,head)
+    if prev:
+        curr.left = prev
+        prev.right = curr
+    else:
+        head = curr
+    prev = curr
+    return func(prev,curr.right,head)
+
+#{ 
+#  Driver Code Starts
+from collections import deque
+class Node:
+    """ Class Node """
+    def __init__(self, value):
+        self.left = None
+        self.data = value
+        self.right = None
+
+# Function to Build Tree   
 def buildTree(s):
     #Corner Case
     if(len(s)==0 or s[0]=="N"):           
@@ -83,20 +93,27 @@ def buildTree(s):
             size=size+1
         i=i+1
     return root
+
+
+import sys            
+def printDLL(head): #Print util function to print Linked List
+    prev = None
+    sys.stdout.flush()
+    while(head != None):
+        print(head.data, end=" ")
+        prev=head
+        head=head.right
+    print('')
+    while(prev != None):
+        print(prev.data, end=" ")
+        prev=prev.left
+    print('')
     
-    
-if __name__=="__main__":
-    t=int(input()) 
-    import sys
-    sys.setrecursionlimit(10000)
+if __name__=='__main__':
+    t=int(input())
     for _ in range(0,t):
         s=input()
         root=buildTree(s)
-        res = Solution().verticalOrder(root)
-        for i in res:
-            print (i, end=" ")
-        print()
-
-
-
+        head = bToDLL(root)
+        printDLL(head)
 # } Driver Code Ends

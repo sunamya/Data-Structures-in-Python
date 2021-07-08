@@ -1,26 +1,31 @@
 #User function Template for python3
 
 
+
 class Solution:
     
-    #Function to find the vertical order traversal of Binary Tree.
-    def verticalOrder(self, root): 
-        #Your code here
-        dict = {}
-        d=[]
-        self.printVertical(root, 0, dict)
-        # traverse the dictionary and print vertical nodes
-        for key in sorted(dict.keys()):
-            d.append(dict.get(key)[0])
-        return d
-    def printVertical(self,node,dist,dict):
-        if node is None:
-            return
-        dict.setdefault(dist, []).append(node.data)
-        self.printVertical(node.left, dist - 1, dict)
-        self.printVertical(node.right, dist + 1, dict)
+    #Function to return the diameter of a Binary Tree.
+    def diameter(self,root):
+        # Code here
+        cnt=0
+        return self.getDiameter(root,cnt)[1]
+    def getDiameter(self,root,diameter):
+        if root is None:
+            return 0, diameter
+        left_height, diameter = self.getDiameter(root.left, diameter)
+        right_height, diameter = self.getDiameter(root.right, diameter)
+        max_diameter = left_height + right_height + 1
+        diameter = max(diameter, max_diameter)
+        return max(left_height, right_height) + 1, diameter
 
+#{ 
+#  Driver Code Starts
+#Initial Template for Python 3
+
+#Contributed by Sudarshan Sharma
 from collections import deque
+import sys
+sys.setrecursionlimit(50000)
 # Tree Node
 class Node:
     def __init__(self, val):
@@ -28,6 +33,9 @@ class Node:
         self.data = val
         self.left = None
 
+
+
+# Function to Build Tree   
 def buildTree(s):
     #Corner Case
     if(len(s)==0 or s[0]=="N"):           
@@ -86,16 +94,12 @@ def buildTree(s):
     
     
 if __name__=="__main__":
-    t=int(input()) 
-    import sys
-    sys.setrecursionlimit(10000)
+    t=int(input())
     for _ in range(0,t):
         s=input()
         root=buildTree(s)
-        res = Solution().verticalOrder(root)
-        for i in res:
-            print (i, end=" ")
-        print()
+        k=Solution().diameter(root)
+        print(k)
 
 
 

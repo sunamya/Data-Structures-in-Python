@@ -1,25 +1,21 @@
 #User function Template for python3
 
 
-class Solution:
+# return true/false denoting whether the tree is Symmetric or not
+def isSymmetric(root):
+    # Your Code Here
+    return sym(root.left,root.right)
     
-    #Function to find the vertical order traversal of Binary Tree.
-    def verticalOrder(self, root): 
-        #Your code here
-        dict = {}
-        d=[]
-        self.printVertical(root, 0, dict)
-        # traverse the dictionary and print vertical nodes
-        for key in sorted(dict.keys()):
-            d.append(dict.get(key)[0])
-        return d
-    def printVertical(self,node,dist,dict):
-        if node is None:
-            return
-        dict.setdefault(dist, []).append(node.data)
-        self.printVertical(node.left, dist - 1, dict)
-        self.printVertical(node.right, dist + 1, dict)
+def sym(left,right):
+    if left is None and right is None:
+        return True
+    return (left and right) and sym(left.left, right.right) and sym(left.right, right.left)
 
+#{ 
+#  Driver Code Starts
+#Initial Template for Python 3
+
+#Contributed by Sudarshan Sharma
 from collections import deque
 # Tree Node
 class Node:
@@ -28,6 +24,7 @@ class Node:
         self.data = val
         self.left = None
 
+# Function to Build Tree   
 def buildTree(s):
     #Corner Case
     if(len(s)==0 or s[0]=="N"):           
@@ -86,17 +83,15 @@ def buildTree(s):
     
     
 if __name__=="__main__":
-    t=int(input()) 
-    import sys
-    sys.setrecursionlimit(10000)
+    t=int(input())
     for _ in range(0,t):
         s=input()
         root=buildTree(s)
-        res = Solution().verticalOrder(root)
-        for i in res:
-            print (i, end=" ")
-        print()
-
-
+        if isSymmetric(root):
+            print("True")
+        else:
+            print("False")
+        
+        
 
 # } Driver Code Ends

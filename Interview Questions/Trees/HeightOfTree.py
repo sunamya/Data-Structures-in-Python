@@ -1,24 +1,25 @@
 #User function Template for python3
 
-
+'''
+# Node Class:
+class Node:
+    def _init_(self,val):
+        self.data = val
+        self.left = None
+        self.right = None
+        '''
 class Solution:
-    
-    #Function to find the vertical order traversal of Binary Tree.
-    def verticalOrder(self, root): 
-        #Your code here
-        dict = {}
-        d=[]
-        self.printVertical(root, 0, dict)
-        # traverse the dictionary and print vertical nodes
-        for key in sorted(dict.keys()):
-            d.append(dict.get(key)[0])
-        return d
-    def printVertical(self,node,dist,dict):
-        if node is None:
-            return
-        dict.setdefault(dist, []).append(node.data)
-        self.printVertical(node.left, dist - 1, dict)
-        self.printVertical(node.right, dist + 1, dict)
+    #Function to find the height of a binary tree.
+    def height(self, root):# Base case: empty tree has a height of 0
+        if root is None:
+            return 0
+        return 1 + max(self.height(root.left), self.height(root.right))
+        
+
+
+#{ 
+#  Driver Code Starts
+#Initial Template for Python 3
 
 from collections import deque
 # Tree Node
@@ -28,6 +29,7 @@ class Node:
         self.data = val
         self.left = None
 
+# Function to Build Tree   
 def buildTree(s):
     #Corner Case
     if(len(s)==0 or s[0]=="N"):           
@@ -84,19 +86,11 @@ def buildTree(s):
         i=i+1
     return root
     
-    
 if __name__=="__main__":
-    t=int(input()) 
-    import sys
-    sys.setrecursionlimit(10000)
+    t=int(input())
     for _ in range(0,t):
         s=input()
         root=buildTree(s)
-        res = Solution().verticalOrder(root)
-        for i in res:
-            print (i, end=" ")
-        print()
-
-
-
+        ob = Solution()
+        print(ob.height(root))
 # } Driver Code Ends
